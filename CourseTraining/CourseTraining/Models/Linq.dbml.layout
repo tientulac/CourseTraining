@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 10.125" name="Linq">
+  <DataContextMoniker Name="/LinqDataContext" />
+  <nestedChildShapes>
+    <classShape Id="4d010139-ade2-40b3-a1a5-f5fea4d78946" absoluteBounds="0.75, 0.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/LinqDataContext/Account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c412eca3-70b3-41fa-a339-912f7af438b6" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="af64bc41-b59b-47b0-88e2-6dcced6a1162" absoluteBounds="3.75, 0.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/LinqDataContext/TrainerTopic" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9659ae4f-8e75-4158-93da-6f09ffd062da" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5c3f3de0-5e4b-4346-97af-9cfad240a08c" absoluteBounds="0.75, 3.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/LinqDataContext/AccountFunction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b2c67314-a4ad-40b5-bd95-6e403e6ef48b" absoluteBounds="0.765, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7f37f4d8-d5d3-482a-8ca2-0966b52ac153" absoluteBounds="3.75, 3.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/LinqDataContext/Category" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c5541749-bc63-4dce-a32a-788bafd0c6b2" absoluteBounds="3.765, 4.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="00a1d699-d788-4fda-8afc-4eaa62786b8d" absoluteBounds="6.75, 0.75, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/LinqDataContext/Course" />
+      <nestedChildShapes>
+        <elementListCompartment Id="93540d4e-08e1-46e0-bf9a-1800f22756e9" absoluteBounds="6.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b4cbc12b-07a8-4194-b434-5f219e37d76a" absoluteBounds="0.75, 6.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/LinqDataContext/Function" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e31f37c0-3d5a-40cb-949a-c9acb38d4919" absoluteBounds="0.765, 7.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5d81b9e0-709b-4efc-b642-fb58cb36b4c4" absoluteBounds="6.75, 3.75, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/LinqDataContext/Topic" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e9fc1552-67d3-4317-9fdc-3870eca2dd90" absoluteBounds="6.765, 4.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a9ac66a7-9f23-4311-88f1-0e1cd4b729e5" absoluteBounds="3.75, 6.75, 2, 3.1170068359375014">
+      <DataClassMoniker Name="/LinqDataContext/Trainee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="953eed23-a541-43fe-be52-363b33d2ccbf" absoluteBounds="3.765, 7.21, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a12c1f18-3044-401e-9519-1ab72b27b270" absoluteBounds="6.75, 6.75, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/LinqDataContext/Trainer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd69abc4-b773-4af2-a847-e058031bb902" absoluteBounds="6.765, 7.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="92cb1a60-d2cd-4a80-b457-94d4401b5d9c" absoluteBounds="9.75, 0.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/LinqDataContext/TrainerCourse" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f75c0b4d-f49e-4cea-a5d7-f69e43fc532a" absoluteBounds="9.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

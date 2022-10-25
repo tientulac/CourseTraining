@@ -1,0 +1,375 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">Trainer</h2>
+                    <h5 class="text-white op-7 mb-2">Home/Admin/Trainer</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+                    <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
+                    <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addModal" onclick="openAddModal()">Add new</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row mt--2">
+            <div class="col-md-12">
+                <div class="card full-height">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive table-hover table-sales">
+                                    <table id="table_trainer" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Date of birth</th>
+                                                <th>Gender</th>
+                                                <th>Education</th>
+                                                <th>Phone</th>
+                                                <th>Account</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var f in @ViewBag.ListTrainer)
+                                            {
+                                                <tr>
+                                                    <td>@f.TrainerId</td>
+                                                    <td>@f.TrainerName</td>
+                                                    <td>@f.Dob</td>
+                                                    <td>@f.GenderName</td>
+                                                    <td>@f.Education</td>
+                                                    <td>@f.Phone</td>
+                                                    <td>@f.UserName</td>
+                                                    <td>
+                                                        <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#addModal" style="margin-right: 5px;" onclick="openUpdateModal(@f.TrainerId)">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-danger btn-sm" onclick="openDeleteModal(@f.TrainerId)" style="margin-right: 5px;" data-toggle="modal" data-target="#deleteModal">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="openCourseModal(@f.TrainerId)" data-toggle="modal" data-target="#courseModal">
+                                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Insert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <form id="bouqueti-form">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="required" for="inputEmail4">Name</label>
+                                <input type="text" class="form-control contact-method" id="TrainerName" placeholder="Name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="required" for="inputEmail4">Dob</label>
+                                <input type="date" class="form-control contact-method" id="Dob">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Education</label>
+                                <input type="text" class="form-control contact-method" id="Education" placeholder="Education">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Phone</label>
+                                <input type="text" class="form-control contact-method" id="Phone" placeholder="Phone">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Email</label>
+                                <input type="text" class="form-control contact-method" id="Email" placeholder="Email">
+                            </div>
+                            <div class="infoForm form-group col-md-6">
+                                <label class="required" for="inputEmail4">UserName</label>
+                                <input type="text" class="form-control contact-method" id="UserName" placeholder="UserName">
+                            </div>
+                            <div class="infoForm form-group col-md-6">
+                                <label class="required" for="inputEmail4">Password</label>
+                                <input type="password" class="form-control contact-method" id="Password" placeholder="Password">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Admin</label>
+                                <input type="checkbox" style="width: 20px; height: 20px;" class="form-control contact-method" id="Admin">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="option1" onclick="checkGender(false)">
+                                <label class="required" class="form-check-label" for="inlineRadio1">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="option2" onclick="checkGender(true)">
+                                <label class="required" class="form-check-label" for="inlineRadio2">Female</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submit()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete this record</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 style="text-align:center">Are you sure want to delete this record ??</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="deleteItem()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="courseModalLabel">List Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group col-md-9">
+                        <select class="form-control col-md-12" id="CourseId">
+                            <option selected value="0">Select Course</option>
+                            @foreach (var f in @ViewBag.ListCourse)
+                            {
+                                <option value="@f.CourseId">@f.CourseName</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary mb-2" onclick="addCourse()">Add Course</button>
+                </form>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var f in @ViewBag.ListCourse)
+                        {
+                            <tr>
+                                <td>@f.CourseId</td>
+                                <td>@f.CourseName</td>
+                                <td>@f.CategoryName</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deleteCourse(@f.CourseId)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var id_record = 0;
+    var dataUpdate = {};
+
+    var gender = null;
+
+    checkGender = (_gender) => {
+        gender = _gender;
+    }
+
+    openAddModal = () => {
+        id_record = 0;
+        $('#TrainerName').val('');
+        $('#Dob').val('');
+        $('#female').prop('checked', false);
+        $('#male').prop('checked', false);
+        $('#Admin').prop('checked', false);
+        $('#Education').val('');
+        $('#Phone').val('');
+        $('#UserName').val('');
+        $('#Password').val('');
+        $('#Email').val('');
+        $('.infoForm').css('display', 'block');
+    };
+
+    // Example POST method implementation:
+    async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    $(document).ready(function () {
+        $('#table_trainer').DataTable();
+    });
+
+    submit = () => {
+        var req = {
+            TrainerId: id_record,
+            TrainerName: $('#TrainerName').val(),
+            Dob: $('#Dob').val(),
+            Gender: gender,
+            Education: $('#Education').val(),
+            Phone: $('#Phone').val(),
+            Account: {
+                UserName: $('#UserName').val(),
+                Password: $('#Password').val(),
+                Email: $('#Email').val(),
+                Admin: $('#Admin').prop('checked'),
+            }
+        }
+
+        postData('/Trainer/Save', req)
+            .then((data) => {
+                if (data.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            });
+    }
+
+    openDeleteModal = (id) => {
+        id_record = id;
+    }
+
+
+
+    openUpdateModal = (id) => {
+        id_record = id;
+        $.ajax({
+            url: '/Trainer/FindById?trainerId=' + id,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    var dob = new Date(parseInt((result.data.Dob).toString().replaceAll('/Date(', '').replaceAll(')/', '')));
+
+                    $('.infoForm').css('display', 'none');
+
+                    $('#TrainerName').val(result.data.TrainerName);
+                    $('#Dob').val(formatDate(dob.getFullYear(), dob.getMonth() + 1, dob.getDate()));
+                    if (result.data.Gender) {
+                        $('#female').prop('checked', true);
+                        gender = true;
+                    }
+                    else {
+                        $('#male').prop('checked', true);
+                        gender = false;
+                    }
+                    $('#Education').val(result.data.Education);
+                    $('#Phone').val(result.data.Phone);
+                    $('#UserName').val(result.data.UserName);
+                    $('#Password').val(result.data.Password);
+                    $('#Email').val(result.data.Account.Email);
+                    $('#Admin').prop('checked', result.data.Account.Admin);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+    deleteItem = () => {
+        $.ajax({
+            url: '/Trainer/Delete?trainerId=' + id_record,
+            type: 'DELETE',
+            success: function (result) {
+                if (result.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+    openCourseModal = (id) => {
+        id_record = id;
+    }
+
+    addCourse = () => {
+
+    }
+
+    deleteCourse = (courseId) => {
+    }
+</script>
