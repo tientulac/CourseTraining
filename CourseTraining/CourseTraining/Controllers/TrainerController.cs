@@ -90,32 +90,83 @@ namespace CourseTraining.Controllers
         public ActionResult Index()
         {
             var listTrainer = (from a in db.Trainers
-                              select new TrainerDTO
-                              {
-                                  TrainerId = a.TrainerId,
-                                  TrainerName = a.TrainerName,
-                                  Dob = a.Dob,
-                                  Image = a.Image,
-                                  Gender = a.Gender,
-                                  AccountId = a.AccountId,
-                                  Education = a.Education,
-                                  Phone = a.Phone,
-                                  GenderName = a.Gender == true ? "Female" : "Male",
-                                  UserName = db.Accounts.Where(x => x.AccountId == a.AccountId).FirstOrDefault().UserName ?? ""
-                              }).ToList();
+                               select new TrainerDTO
+                               {
+                                   TrainerId = a.TrainerId,
+                                   TrainerName = a.TrainerName,
+                                   Dob = a.Dob,
+                                   Image = a.Image,
+                                   Gender = a.Gender,
+                                   AccountId = a.AccountId,
+                                   Education = a.Education,
+                                   Phone = a.Phone,
+                                   GenderName = a.Gender == true ? "Female" : "Male",
+                                   UserName = db.Accounts.Where(x => x.AccountId == a.AccountId).FirstOrDefault().UserName ?? ""
+                               }).ToList();
             var listCourse = (from a in db.Courses
-                              select new CourseDTO { 
-                                    CourseId = a.CourseId,
-                                    CourseName = a.CourseName,
-                                    Image = a.Image,
-                                    Descrip = a.Descrip,
-                                    Status = a.Status,
-                                    CategoryId = a.CategoryId,
-                                    CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              select new CourseDTO
+                              {
+                                  CourseId = a.CourseId,
+                                  CourseName = a.CourseName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              }).ToList();
+            var listTopic = (from a in db.Topics
+                              select new TopicDTO
+                              {
+                                  TopicId = a.TopicId,
+                                  TopicName = a.TopicName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
                               }).ToList();
             ViewBag.ListTrainer = listTrainer;
             ViewBag.ListCourse = listCourse;
+            ViewBag.ListTopic = listTopic;
             return View();
+        }
+
+        public ActionResult GetCourseByTrainerId(int trainerId)
+        {
+            var listId = db.TrainerCourses.Where(x => x.TrainerId == trainerId).Select(c => c.CourseId);
+            var listCourse = (from a in db.Courses.Where(x => listId.Contains(x.CourseId))
+                              select new CourseDTO
+                              {
+                                  TrainerCourseId = db.TrainerCourses.Where(x => x.TrainerId == trainerId && x.CourseId == a.CourseId).FirstOrDefault().TrainerCourseId,
+                                  TrainerId = trainerId,
+                                  CourseId = a.CourseId,
+                                  CourseName = a.CourseName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              }).ToList();
+            return Json(new { success = true, data = listCourse }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTopicByTrainerId(int trainerId)
+        {
+            var listId = db.TrainerTopics.Where(x => x.TrainerId == trainerId).Select(c => c.TopicId);
+            var listTopic = (from a in db.Topics.Where(x => listId.Contains(x.TopicId))
+                              select new TopicDTO
+                              {
+                                  TrainerTopicId = db.TrainerTopics.Where(x => x.TrainerId == trainerId && x.TopicId == a.TopicId).FirstOrDefault().TrainerTopicId,
+                                  TrainerId = trainerId,
+                                  TopicId = a.TopicId,
+                                  TopicName = a.TopicName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              }).ToList();
+            return Json(new { success = true, data = listTopic }, JsonRequestBehavior.AllowGet);
         }
     }
 }

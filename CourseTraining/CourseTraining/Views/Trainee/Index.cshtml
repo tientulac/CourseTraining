@@ -66,8 +66,14 @@
                                                         <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#addModal" style="margin-right: 5px;" onclick="openUpdateModal(@f.TraineeId)">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
-                                                        <button class="btn btn-outline-danger btn-sm" onclick="openDeleteModal(@f.TraineeId)" data-toggle="modal" data-target="#deleteModal">
+                                                        <button class="btn btn-outline-danger btn-sm" onclick="openDeleteModal(@f.TraineeId)" style="margin-right: 5px;" data-toggle="modal" data-target="#deleteModal">
                                                             <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="openCourseModal(@f.TraineeId)" style="margin-right: 5px;" data-toggle="modal" data-target="#courseModal">
+                                                            <i class="fa fa-book" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button class="btn btn-outline-primary btn-sm" onclick="openTopicModal(@f.TraineeId)" data-toggle="modal" data-target="#topicModal">
+                                                            <i class="fa fa-eye"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -164,6 +170,50 @@
 </div>
 
 <!-- Modal -->
+<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="courseModalLabel">List Course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group col-md-9">
+                        <select class="form-control col-md-12" id="CourseId">
+                            <option selected value="0">Select Course</option>
+                            @foreach (var f in @ViewBag.ListCourse)
+                            {
+                                <option value="@f.CourseId">@f.CourseName</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="button" class="btn-sm btn-primary mb-2" onclick="addCourse()" value="Add Course">
+                </form>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="course_Trainee">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -179,6 +229,50 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" onclick="deleteItem()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="topicModal" tabindex="-1" role="dialog" aria-labelledby="topicModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topicModalLabel">List Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group col-md-9">
+                        <select class="form-control col-md-12" id="TopicId">
+                            <option selected value="0">Select Topic</option>
+                            @foreach (var f in @ViewBag.ListTopic)
+                            {
+                                <option value="@f.TopicId">@f.TopicName</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="button" class="btn-sm btn-primary mb-2" onclick="addTopic()" value="Add Topic">
+                </form>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Topic Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="course_topic">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -296,7 +390,7 @@
                     else {
                         $('#male').prop('checked', true);
                         gender = false;
-                    }                    $('#Education').val(result.data.Education);
+                    } $('#Education').val(result.data.Education);
                     $('#Phone').val(result.data.Phone);
                     $('#UserName').val(result.data.Account.UserName);
                     $('#Password').val(result.data.Account.Password);
@@ -313,7 +407,7 @@
     deleteItem = () => {
         $.ajax({
             url: '/Trainee/Delete?traineeId=' + id_record,
-            type: 'DELETE',
+            type: 'GET',
             success: function (result) {
                 if (result.success) {
                     toastr.success('Successfully !');
@@ -328,4 +422,141 @@
         });
     }
 
+    openCourseModal = (id) => {
+        id_record = id;
+        $.ajax({
+            url: '/Trainee/GetCourseByTraineeId?TraineeId=' + id_record,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    console.log(result.data);
+                    var temp = '';
+                    for (var item of result.data) {
+                        console.log(temp);
+                        temp += `<tr>
+                                <td>${item.CourseId}</td>
+                                <td>${item.CourseName}</td>
+                                <td>${item.CategoryName}</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deleteCourse(${item.TraineeCourseId})">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>`
+                    }
+                    $('#course_Trainee').html(temp);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+    addCourse = () => {
+        var req = {
+            TraineeId: id_record,
+            CourseId: $('#CourseId').val()
+        }
+        postData('/CourseTrainee/Insert', req)
+            .then((data) => {
+                if (data.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            });
+    }
+
+    deleteCourse = (TraineeCourseId) => {
+        $.ajax({
+            url: '/CourseTrainee/Delete?TraineeCourseId=' + TraineeCourseId,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+    openTopicModal = (id) => {
+        id_record = id;
+        $.ajax({
+            url: '/Trainee/GetTopicByTraineeId?TraineeId=' + id_record,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    console.log(result.data);
+                    var temp = '';
+                    for (var item of result.data) {
+                        console.log(temp);
+                        temp += `<tr>
+                                <td>${item.TraineeTopicId}</td>
+                                <td>${item.TopicName}</td>
+                                <td>${item.CategoryName}</td>
+                                <td>
+                                    <button class="btn btn-outline-danger btn-sm" onclick="deleteTopic(${item.TraineeTopicId})">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>`
+                    }
+                    $('#course_topic').html(temp);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+    addTopic = () => {
+        var req = {
+            TraineeId: id_record,
+            TopicId: $('#TopicId').val()
+        }
+        postData('/TopicTrainee/Insert', req)
+            .then((data) => {
+                if (data.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            });
+    }
+
+    deleteTopic = (TraineeTopicId) => {
+        $.ajax({
+            url: '/TopicTrainee/Delete?TraineeTopicId=' + TraineeTopicId,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    window.location.reload();
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
 </script>

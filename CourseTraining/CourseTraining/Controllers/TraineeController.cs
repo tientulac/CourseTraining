@@ -117,8 +117,70 @@ namespace CourseTraining.Controllers
                                    Detail = a.Detail,
                                    Address = a.Address
                                }).ToList();
+            var listCourse = (from a in db.Courses
+                              select new CourseDTO
+                              {
+                                  CourseId = a.CourseId,
+                                  CourseName = a.CourseName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              }).ToList();
+            var listTopic = (from a in db.Topics
+                             select new TopicDTO
+                             {
+                                 TopicId = a.TopicId,
+                                 TopicName = a.TopicName,
+                                 Image = a.Image,
+                                 Descrip = a.Descrip,
+                                 Status = a.Status,
+                                 CategoryId = a.CategoryId,
+                                 CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                             }).ToList();
             ViewBag.ListTrainee = listTrainee;
+            ViewBag.ListCourse = listCourse;
+            ViewBag.ListTopic = listTopic;
             return View();
+        }
+
+        public ActionResult GetCourseByTraineeId(int traineeId)
+        {
+            var listId = db.TraineeCourses.Where(x => x.TraineeId == traineeId).Select(c => c.CourseId);
+            var listCourse = (from a in db.Courses.Where(x => listId.Contains(x.CourseId))
+                              select new CourseDTO
+                              {
+                                  TraineeCourseId = db.TraineeCourses.Where(x => x.TraineeId == traineeId && x.CourseId == a.CourseId).FirstOrDefault().TraineeCourseId,
+                                  TraineeId = traineeId,
+                                  CourseId = a.CourseId,
+                                  CourseName = a.CourseName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                              }).ToList();
+            return Json(new { success = true, data = listCourse }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTopicByTraineeId(int traineeId)
+        {
+            var listId = db.TraineeTopics.Where(x => x.TraineeId == traineeId).Select(c => c.TopicId);
+            var listTopic = (from a in db.Topics.Where(x => listId.Contains(x.TopicId))
+                             select new TopicDTO
+                             {
+                                 TraineeTopicId = db.TraineeTopics.Where(x => x.TraineeId == traineeId && x.TopicId == a.TopicId).FirstOrDefault().TraineeTopicId,
+                                 TraineeId = traineeId,
+                                 TopicId = a.TopicId,
+                                 TopicName = a.TopicName,
+                                 Image = a.Image,
+                                 Descrip = a.Descrip,
+                                 Status = a.Status,
+                                 CategoryId = a.CategoryId,
+                                 CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                             }).ToList();
+            return Json(new { success = true, data = listTopic }, JsonRequestBehavior.AllowGet);
         }
     }
 }

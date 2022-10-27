@@ -238,7 +238,7 @@
     deleteItem = () => {
         $.ajax({
             url: '/Account/Delete?accountId=' + id_record,
-            type: 'DELETE',
+            type: 'GET',
             success: function (result) {
                 if (result.success) {
                     toastr.success('Successfully !');

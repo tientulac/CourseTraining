@@ -336,34 +336,33 @@
     }
 
     login = () => {
-        //var reqUser = {
-        //    UserName: $('#username').val(),
-        //    PassWord: $('#password').val(),
-        //}
-        //postData('../Account/Login', reqUser)
-        //    .then((data) => {
-        //        console.log(data);
-        //        if (data.success) {
-        //            var userInfo = {
-        //                UserId: data.data.UserId,
-        //                Admin: data.data.Admin,
-        //                UserName: data.data.UserName,
-        //                Token: data.token
-        //            };
-        //            localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-        //            if (userInfo.Admin) {
-        //                toastr.success('Successfully !');
-        //                window.location.assign('../Dashboard/Index');
-        //            }
-        //            else {
-        //                toastr.warning('This account has no role ADMIN !');
-        //            }
-        //        }
-        //        else {
-        //            toastr.warning('Wrong password or username !');
-        //        }
-        //    });
-        window.location.assign('../Dashboard/Index');
+        var req = {
+            UserName: $('#username').val(),
+            PassWord: $('#password').val(),
+        }
+        postData('../Account/Login', req)
+            .then((data) => {
+                console.log(data);
+                if (data.success) {
+                    var userInfo = {
+                        UserId: data.data.UserId,
+                        Admin: data.data.Admin,
+                        UserName: data.data.UserName,
+                        Token: data.token
+                    };
+                    localStorage.setItem("UserInfo", JSON.stringify(userInfo));
+                    if (userInfo.Admin) {
+                        toastr.success('Successfully !');
+                        window.location.assign('../Dashboard/Index');
+                    }
+                    else {
+                        toastr.warning('This account has no role ADMIN !');
+                    }
+                }
+                else {
+                    toastr.warning('Wrong password or username !');
+                }
+            });
     }
 
 </script>

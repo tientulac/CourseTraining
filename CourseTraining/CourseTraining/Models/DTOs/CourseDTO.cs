@@ -8,5 +8,9 @@ namespace CourseTraining.Models.DTOs
     public class CourseDTO: Course
     {
         public string CategoryName { get; set; }
+        public int TrainerId { get; set; }
+        public int TrainerCourseId { get; set; }
+        public int TraineeId { get; set; }
+        public int TraineeCourseId { get; set; }
     }
 }

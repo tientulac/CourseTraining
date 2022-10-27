@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseTraining.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,20 @@ namespace CourseTraining.Controllers
 {
     public class CourseTraineeController : Controller
     {
-        // GET: CourseTrainee
-        public ActionResult Index()
+        private LinqDataContext db = new LinqDataContext();
+        public ActionResult Insert(TraineeCourse req)
         {
-            return View();
+            db.TraineeCourses.InsertOnSubmit(req);
+            db.SubmitChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete(int traineeCourseId)
+        {
+            var _traineeCourse = db.TraineeCourses.Where(x => x.TraineeCourseId == traineeCourseId).FirstOrDefault();
+            db.TraineeCourses.DeleteOnSubmit(_traineeCourse);
+            db.SubmitChanges();
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }
