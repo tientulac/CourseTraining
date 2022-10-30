@@ -39,6 +39,7 @@
                                                 <th>Description</th>
                                                 <th>Status</th>
                                                 <th>Category</th>
+                                                <th>Author</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -107,6 +108,10 @@
                                 <input type="text" class="form-control contact-method" id="image" placeholder="Paste link in here">
                             </div>
                             <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Author</label>
+                                <input type="text" class="form-control contact-method" id="author" placeholder="Author">
+                            </div>
+                            <div class="form-group col-md-12">
                                 <label for="descrip">Description</label>
                                 <textarea class="form-control" id="descrip" rows="3"></textarea>
                             </div>
@@ -162,7 +167,8 @@
         id_record = 0;
         $('#name').val('');
         $('#image').val('');
-        $('#Descrip').val('');
+        $('#descrip').val('');
+        $('#author').val('');
         $('#cate').val('0');
         status = 1;
     };
@@ -196,6 +202,7 @@
             TopicName: $('#name').val(),
             Image: $('#image').val(),
             Descrip: $('#descrip').val(),
+            Descrip: $('#author').val(),
             CategoryId: $('#cate').val(),
             Status: status
         }
@@ -228,6 +235,7 @@
                     $('#name').val(result.data.CourseName);
                     $('#image').val(result.data.Image);
                     $('#descrip').val(result.data.Descrip);
+                    $('#author').val(result.data.Author);
                     $('#cate').val(result.data.CategoryId);
                     status = result.data.Status;
                 }

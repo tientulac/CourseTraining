@@ -23,6 +23,8 @@ namespace CourseTraining.Controllers
                 _course.Descrip = req.Descrip;
                 _course.Status = req.Status;
                 _course.CategoryId = req.CategoryId;
+                _course.Author = req.Author;
+                _course.Forum = req.Forum;
 
                 db.SubmitChanges();
                 return Json(new { success = true, data = _course }, JsonRequestBehavior.AllowGet);
@@ -61,7 +63,9 @@ namespace CourseTraining.Controllers
                                   Descrip = a.Descrip,
                                   Status = a.Status,
                                   CategoryId = a.CategoryId,
-                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? "",
+                                  Author = a.Author,
+                                  Forum = a.Forum
                               }).ToList();
             ViewBag.ListCourse = listCourse;
             ViewBag.ListCategory = db.Categories.ToList();

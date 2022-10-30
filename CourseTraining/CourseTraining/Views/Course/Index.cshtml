@@ -39,6 +39,8 @@
                                                 <th>Description</th>
                                                 <th>Status</th>
                                                 <th>Category</th>
+                                                <th>Author</th>
+                                                <th>Forum</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -61,6 +63,8 @@
 
                                                     }
                                                     <td>@f.CategoryName</td>
+                                                    <td>@f.Author</td>
+                                                    <td><a href="@f.Forum">Link Forum in here</a></td>
                                                     <td>
                                                         <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#addModal" style="margin-right: 5px;" onclick="openUpdateModal(@f.CourseId)">
                                                             <i class="fas fa-edit"></i>
@@ -105,6 +109,14 @@
                             <div class="form-group col-md-12">
                                 <label class="required" for="inputEmail4">Image</label>
                                 <input type="text" class="form-control contact-method" id="image" placeholder="Paste link in here">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Link Forum</label>
+                                <input type="text" class="form-control contact-method" id="forum" placeholder="Paste link in here">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="required" for="inputEmail4">Author</label>
+                                <input type="text" class="form-control contact-method" id="author" placeholder="Ahthor">
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="descrip">Description</label>
@@ -162,7 +174,9 @@
         id_record = 0;
         $('#name').val('');
         $('#image').val('');
-        $('#Descrip').val('');
+        $('#descrip').val('');
+        $('#author').val('');
+        $('#forum').val('');
         $('#cate').val('0');
         status = 1;
     };
@@ -197,6 +211,8 @@
             Image: $('#image').val(),
             Descrip: $('#descrip').val(),
             CategoryId: $('#cate').val(),
+            Author: $('#author').val(),
+            Forum: $('#forum').val(),
             Status: status
         }
 
@@ -228,6 +244,8 @@
                     $('#name').val(result.data.CourseName);
                     $('#image').val(result.data.Image);
                     $('#descrip').val(result.data.Descrip);
+                    $('#author').val(result.data.Author);
+                    $('#forum').val(result.data.Forum);
                     $('#cate').val(result.data.CategoryId);
                     status = result.data.Status;
                 }

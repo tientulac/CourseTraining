@@ -12,5 +12,7 @@ namespace CourseTraining.Models.DTOs
         public int TrainerCourseId { get; set; }
         public int TraineeId { get; set; }
         public int TraineeCourseId { get; set; }
+        public int StaffId { get; set; }
+        public int StaffCourseId { get; set; }
     }
 }

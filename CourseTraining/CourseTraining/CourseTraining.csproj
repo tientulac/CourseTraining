@@ -167,12 +167,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\CourseStaffController.cs" />
     <Compile Include="Controllers\CourseTraineeController.cs" />
     <Compile Include="Controllers\CourseTrainerController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TopicController.cs" />
+    <Compile Include="Controllers\TopicStaffController.cs" />
     <Compile Include="Controllers\TopicTraineeController.cs" />
     <Compile Include="Controllers\TopicTrainerController.cs" />
     <Compile Include="Controllers\TraineeController.cs" />
@@ -181,6 +184,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\CourseDTO.cs" />
+    <Compile Include="Models\DTOs\StaffDTO.cs" />
     <Compile Include="Models\DTOs\TopicDTO.cs" />
     <Compile Include="Models\DTOs\TraineeDTO.cs" />
     <Compile Include="Models\DTOs\TrainerDTO.cs" />
@@ -671,6 +675,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="ScriptSQL\TrainingCourseScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -698,12 +703,15 @@
     <Content Include="Views\Trainee\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CourseStaff\" />
     <Folder Include="Views\CourseTrainee\" />
     <Folder Include="Views\CourseTrainer\" />
     <Folder Include="Views\Shared\User\" />
+    <Folder Include="Views\TopicStaff\" />
     <Folder Include="Views\TopicTrainee\" />
     <Folder Include="Views\TopicTrainer\" />
   </ItemGroup>

@@ -51,6 +51,15 @@ namespace CourseTraining.Models
     partial void InsertRole(Role instance);
     partial void UpdateRole(Role instance);
     partial void DeleteRole(Role instance);
+    partial void InsertStaff(Staff instance);
+    partial void UpdateStaff(Staff instance);
+    partial void DeleteStaff(Staff instance);
+    partial void InsertStaffCourse(StaffCourse instance);
+    partial void UpdateStaffCourse(StaffCourse instance);
+    partial void DeleteStaffCourse(StaffCourse instance);
+    partial void InsertStaffTopic(StaffTopic instance);
+    partial void UpdateStaffTopic(StaffTopic instance);
+    partial void DeleteStaffTopic(StaffTopic instance);
     partial void InsertTopic(Topic instance);
     partial void UpdateTopic(Topic instance);
     partial void DeleteTopic(Topic instance);
@@ -72,7 +81,7 @@ namespace CourseTraining.Models
     #endregion
 		
 		public LinqDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["TrainingCourseConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["TrainingCourseConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -154,6 +163,30 @@ namespace CourseTraining.Models
 			get
 			{
 				return this.GetTable<Role>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Staff> Staffs
+		{
+			get
+			{
+				return this.GetTable<Staff>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StaffCourse> StaffCourses
+		{
+			get
+			{
+				return this.GetTable<StaffCourse>();
+			}
+		}
+		
+		public System.Data.Linq.Table<StaffTopic> StaffTopics
+		{
+			get
+			{
+				return this.GetTable<StaffTopic>();
 			}
 		}
 		
@@ -760,6 +793,10 @@ namespace CourseTraining.Models
 		
 		private System.Nullable<int> _CategoryId;
 		
+		private string _Forum;
+		
+		private string _Author;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -776,6 +813,10 @@ namespace CourseTraining.Models
     partial void OnStatusChanged();
     partial void OnCategoryIdChanging(System.Nullable<int> value);
     partial void OnCategoryIdChanged();
+    partial void OnForumChanging(string value);
+    partial void OnForumChanged();
+    partial void OnAuthorChanging(string value);
+    partial void OnAuthorChanged();
     #endregion
 		
 		public Course()
@@ -899,6 +940,46 @@ namespace CourseTraining.Models
 					this._CategoryId = value;
 					this.SendPropertyChanged("CategoryId");
 					this.OnCategoryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Forum", DbType="NVarChar(MAX)")]
+		public string Forum
+		{
+			get
+			{
+				return this._Forum;
+			}
+			set
+			{
+				if ((this._Forum != value))
+				{
+					this.OnForumChanging(value);
+					this.SendPropertyChanging();
+					this._Forum = value;
+					this.SendPropertyChanged("Forum");
+					this.OnForumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Author", DbType="NVarChar(MAX)")]
+		public string Author
+		{
+			get
+			{
+				return this._Author;
+			}
+			set
+			{
+				if ((this._Author != value))
+				{
+					this.OnAuthorChanging(value);
+					this.SendPropertyChanging();
+					this._Author = value;
+					this.SendPropertyChanged("Author");
+					this.OnAuthorChanged();
 				}
 			}
 		}
@@ -1144,6 +1225,456 @@ namespace CourseTraining.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Staff")]
+	public partial class Staff : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _StaffId;
+		
+		private string _StaffName;
+		
+		private System.Nullable<System.DateTime> _Dob;
+		
+		private string _Image;
+		
+		private System.Nullable<bool> _Gender;
+		
+		private System.Nullable<int> _AccountId;
+		
+		private string _Position;
+		
+		private string _Phone;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStaffIdChanging(int value);
+    partial void OnStaffIdChanged();
+    partial void OnStaffNameChanging(string value);
+    partial void OnStaffNameChanged();
+    partial void OnDobChanging(System.Nullable<System.DateTime> value);
+    partial void OnDobChanged();
+    partial void OnImageChanging(string value);
+    partial void OnImageChanged();
+    partial void OnGenderChanging(System.Nullable<bool> value);
+    partial void OnGenderChanged();
+    partial void OnAccountIdChanging(System.Nullable<int> value);
+    partial void OnAccountIdChanged();
+    partial void OnPositionChanging(string value);
+    partial void OnPositionChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    #endregion
+		
+		public Staff()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int StaffId
+		{
+			get
+			{
+				return this._StaffId;
+			}
+			set
+			{
+				if ((this._StaffId != value))
+				{
+					this.OnStaffIdChanging(value);
+					this.SendPropertyChanging();
+					this._StaffId = value;
+					this.SendPropertyChanged("StaffId");
+					this.OnStaffIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffName", DbType="NVarChar(255)")]
+		public string StaffName
+		{
+			get
+			{
+				return this._StaffName;
+			}
+			set
+			{
+				if ((this._StaffName != value))
+				{
+					this.OnStaffNameChanging(value);
+					this.SendPropertyChanging();
+					this._StaffName = value;
+					this.SendPropertyChanged("StaffName");
+					this.OnStaffNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dob", DbType="Date")]
+		public System.Nullable<System.DateTime> Dob
+		{
+			get
+			{
+				return this._Dob;
+			}
+			set
+			{
+				if ((this._Dob != value))
+				{
+					this.OnDobChanging(value);
+					this.SendPropertyChanging();
+					this._Dob = value;
+					this.SendPropertyChanged("Dob");
+					this.OnDobChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="NVarChar(MAX)")]
+		public string Image
+		{
+			get
+			{
+				return this._Image;
+			}
+			set
+			{
+				if ((this._Image != value))
+				{
+					this.OnImageChanging(value);
+					this.SendPropertyChanging();
+					this._Image = value;
+					this.SendPropertyChanged("Image");
+					this.OnImageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="Bit")]
+		public System.Nullable<bool> Gender
+		{
+			get
+			{
+				return this._Gender;
+			}
+			set
+			{
+				if ((this._Gender != value))
+				{
+					this.OnGenderChanging(value);
+					this.SendPropertyChanging();
+					this._Gender = value;
+					this.SendPropertyChanged("Gender");
+					this.OnGenderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccountId", DbType="Int")]
+		public System.Nullable<int> AccountId
+		{
+			get
+			{
+				return this._AccountId;
+			}
+			set
+			{
+				if ((this._AccountId != value))
+				{
+					this.OnAccountIdChanging(value);
+					this.SendPropertyChanging();
+					this._AccountId = value;
+					this.SendPropertyChanged("AccountId");
+					this.OnAccountIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Position", DbType="NVarChar(MAX)")]
+		public string Position
+		{
+			get
+			{
+				return this._Position;
+			}
+			set
+			{
+				if ((this._Position != value))
+				{
+					this.OnPositionChanging(value);
+					this.SendPropertyChanging();
+					this._Position = value;
+					this.SendPropertyChanged("Position");
+					this.OnPositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(50)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StaffCourse")]
+	public partial class StaffCourse : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _StaffCourseId;
+		
+		private System.Nullable<int> _StaffId;
+		
+		private System.Nullable<int> _CourseId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStaffCourseIdChanging(int value);
+    partial void OnStaffCourseIdChanged();
+    partial void OnStaffIdChanging(System.Nullable<int> value);
+    partial void OnStaffIdChanged();
+    partial void OnCourseIdChanging(System.Nullable<int> value);
+    partial void OnCourseIdChanged();
+    #endregion
+		
+		public StaffCourse()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffCourseId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int StaffCourseId
+		{
+			get
+			{
+				return this._StaffCourseId;
+			}
+			set
+			{
+				if ((this._StaffCourseId != value))
+				{
+					this.OnStaffCourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._StaffCourseId = value;
+					this.SendPropertyChanged("StaffCourseId");
+					this.OnStaffCourseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffId", DbType="Int")]
+		public System.Nullable<int> StaffId
+		{
+			get
+			{
+				return this._StaffId;
+			}
+			set
+			{
+				if ((this._StaffId != value))
+				{
+					this.OnStaffIdChanging(value);
+					this.SendPropertyChanging();
+					this._StaffId = value;
+					this.SendPropertyChanged("StaffId");
+					this.OnStaffIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CourseId", DbType="Int")]
+		public System.Nullable<int> CourseId
+		{
+			get
+			{
+				return this._CourseId;
+			}
+			set
+			{
+				if ((this._CourseId != value))
+				{
+					this.OnCourseIdChanging(value);
+					this.SendPropertyChanging();
+					this._CourseId = value;
+					this.SendPropertyChanged("CourseId");
+					this.OnCourseIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.StaffTopic")]
+	public partial class StaffTopic : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _StaffTopicId;
+		
+		private System.Nullable<int> _StaffId;
+		
+		private System.Nullable<int> _TopicId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnStaffTopicIdChanging(int value);
+    partial void OnStaffTopicIdChanged();
+    partial void OnStaffIdChanging(System.Nullable<int> value);
+    partial void OnStaffIdChanged();
+    partial void OnTopicIdChanging(System.Nullable<int> value);
+    partial void OnTopicIdChanged();
+    #endregion
+		
+		public StaffTopic()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffTopicId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int StaffTopicId
+		{
+			get
+			{
+				return this._StaffTopicId;
+			}
+			set
+			{
+				if ((this._StaffTopicId != value))
+				{
+					this.OnStaffTopicIdChanging(value);
+					this.SendPropertyChanging();
+					this._StaffTopicId = value;
+					this.SendPropertyChanged("StaffTopicId");
+					this.OnStaffTopicIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StaffId", DbType="Int")]
+		public System.Nullable<int> StaffId
+		{
+			get
+			{
+				return this._StaffId;
+			}
+			set
+			{
+				if ((this._StaffId != value))
+				{
+					this.OnStaffIdChanging(value);
+					this.SendPropertyChanging();
+					this._StaffId = value;
+					this.SendPropertyChanged("StaffId");
+					this.OnStaffIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TopicId", DbType="Int")]
+		public System.Nullable<int> TopicId
+		{
+			get
+			{
+				return this._TopicId;
+			}
+			set
+			{
+				if ((this._TopicId != value))
+				{
+					this.OnTopicIdChanging(value);
+					this.SendPropertyChanging();
+					this._TopicId = value;
+					this.SendPropertyChanged("TopicId");
+					this.OnTopicIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Topic")]
 	public partial class Topic : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1162,6 +1693,8 @@ namespace CourseTraining.Models
 		
 		private System.Nullable<int> _CategoryId;
 		
+		private string _Author;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1178,6 +1711,8 @@ namespace CourseTraining.Models
     partial void OnStatusChanged();
     partial void OnCategoryIdChanging(System.Nullable<int> value);
     partial void OnCategoryIdChanged();
+    partial void OnAuthorChanging(string value);
+    partial void OnAuthorChanged();
     #endregion
 		
 		public Topic()
@@ -1301,6 +1836,26 @@ namespace CourseTraining.Models
 					this._CategoryId = value;
 					this.SendPropertyChanged("CategoryId");
 					this.OnCategoryIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Author", DbType="NVarChar(MAX)")]
+		public string Author
+		{
+			get
+			{
+				return this._Author;
+			}
+			set
+			{
+				if ((this._Author != value))
+				{
+					this.OnAuthorChanging(value);
+					this.SendPropertyChanging();
+					this._Author = value;
+					this.SendPropertyChanged("Author");
+					this.OnAuthorChanged();
 				}
 			}
 		}
