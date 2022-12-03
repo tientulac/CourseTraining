@@ -179,6 +179,7 @@
     <Compile Include="Controllers\TopicTraineeController.cs" />
     <Compile Include="Controllers\TopicTrainerController.cs" />
     <Compile Include="Controllers\TraineeController.cs" />
+    <Compile Include="Controllers\TraineePageController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -704,12 +705,18 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Shared\Trainee\_TraineeLayout.cshtml" />
+    <Content Include="Views\Shared\Trainee\_Footer.cshtml" />
+    <Content Include="Views\Shared\Trainee\_Header.cshtml" />
+    <Content Include="Views\Shared\Trainee\_SideBar.cshtml" />
+    <Content Include="Views\TraineePage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CourseStaff\" />
     <Folder Include="Views\CourseTrainee\" />
     <Folder Include="Views\CourseTrainer\" />
+    <Folder Include="Views\Shared\Trainer\" />
     <Folder Include="Views\Shared\User\" />
     <Folder Include="Views\TopicStaff\" />
     <Folder Include="Views\TopicTrainee\" />

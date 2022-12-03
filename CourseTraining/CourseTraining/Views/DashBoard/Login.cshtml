@@ -345,18 +345,24 @@
                 console.log(data);
                 if (data.success) {
                     var userInfo = {
-                        UserId: data.data.UserId,
+                        UserId: data.data.AccountId,
                         Admin: data.data.Admin,
                         UserName: data.data.UserName,
-                        Token: data.token
+                        Token: data.token,
+                        Type: data.type
                     };
                     localStorage.setItem("UserInfo", JSON.stringify(userInfo));
-                    if (userInfo.Admin) {
+                    if (userInfo.Type == 3) {
                         toastr.success('Successfully !');
                         window.location.assign('../Dashboard/Index');
                     }
-                    else {
-                        toastr.warning('This account has no role ADMIN !');
+                    if (userInfo.Type == 2) {
+                        toastr.success('Successfully !');
+                        window.location.assign('../TrainerPage/Index');
+                    }
+                    if (userInfo.Type == 1) {
+                        toastr.success('Successfully !');
+                        window.location.assign('../TraineePage/Index');
                     }
                 }
                 else {
