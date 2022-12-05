@@ -44,11 +44,11 @@
 </style>
 <body>
     @{
-        Html.RenderPartial("~/Views/Shared/Trainee/_Header.cshtml");
+        Html.RenderPartial("~/Views/Shared/Trainer/_Header.cshtml");
     }
 
     @{
-        Html.RenderPartial("~/Views/Shared/Trainee/_SideBar.cshtml");
+        Html.RenderPartial("~/Views/Shared/Trainer/_SideBar.cshtml");
     }
 
     <div class="main-panel">
@@ -56,7 +56,7 @@
             @RenderBody()
         </div>
         @{
-            Html.RenderPartial("~/Views/Shared/Trainee/_Footer.cshtml");
+            Html.RenderPartial("~/Views/Shared/Trainer/_Footer.cshtml");
         }
     </div>
 

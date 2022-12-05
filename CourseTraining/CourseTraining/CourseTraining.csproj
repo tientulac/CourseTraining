@@ -181,6 +181,7 @@
     <Compile Include="Controllers\TraineeController.cs" />
     <Compile Include="Controllers\TraineePageController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
+    <Compile Include="Controllers\TrainerPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -710,17 +711,24 @@
     <Content Include="Views\Shared\Trainee\_Header.cshtml" />
     <Content Include="Views\Shared\Trainee\_SideBar.cshtml" />
     <Content Include="Views\TraineePage\Index.cshtml" />
+    <Content Include="Views\TraineePage\TraineeDetail.cshtml" />
+    <Content Include="Views\TraineePage\Course.cshtml" />
+    <Content Include="Views\TraineePage\Topic.cshtml" />
+    <Content Include="Views\Shared\Trainer\_Footer.cshtml" />
+    <Content Include="Views\Shared\Trainer\_Header.cshtml" />
+    <Content Include="Views\Shared\Trainer\_SideBar.cshtml" />
+    <Content Include="Views\Shared\Trainer\_TrainerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CourseStaff\" />
     <Folder Include="Views\CourseTrainee\" />
     <Folder Include="Views\CourseTrainer\" />
-    <Folder Include="Views\Shared\Trainer\" />
     <Folder Include="Views\Shared\User\" />
     <Folder Include="Views\TopicStaff\" />
     <Folder Include="Views\TopicTrainee\" />
     <Folder Include="Views\TopicTrainer\" />
+    <Folder Include="Views\TrainerPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

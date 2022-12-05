@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Course";
+    Layout = "~/Views/Shared/Trainee/_TraineeLayout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">Course</h2>
+                    <h5 class="text-white op-7 mb-2">Home/Trainee/Topic</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+                    <a href="#" class="btn btn-secondary btn-round" data-toggle="modal" data-target="#addModal" onclick="openAddModal()">Add new</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row mt--2">
+            <div class="col-md-12">
+                <div class="card full-height">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive table-hover table-sales">
+                                    <table id="table_cate" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Topic Name</th>
+                                                <th>Image</th>
+                                                <th>Description</th>
+                                                <th>Status</th>
+                                                <th>Category</th>
+                                                <th>Author</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var f in @ViewBag.ListTopic)
+                                            {
+                                                <tr>
+                                                    <td>@f.TopicId</td>
+                                                    <td>@f.TopicName</td>
+                                                    <td><img style="width:50px;height:50px" src="@f.Image" alt="Alternate Text" /></td>
+                                                    <td>@f.Descrip</td>
+                                                    @if (f.Status == 1)
+                                                    {
+                                                        <td style="color: lawngreen">New</td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color: red">Old</td>
+
+                                                    }
+                                                    <td>@f.CategoryName</td>
+                                                    <td>@f.Author</td>
+                                                    <td>
+                                                        <button class="btn btn-outline-danger btn-sm" onclick="openDeleteModal(@f.TopicId)" data-toggle="modal" data-target="#deleteModal">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="topicModalLabel">List Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline">
+                    <div class="form-group col-md-9">
+                        <select class="form-control col-md-12" id="TopicId">
+                            <option selected value="0">Select Topic</option>
+                            @foreach (var f in @ViewBag.ListTraineeTopic)
+                            {
+                                <option value="@f.TopicId">@f.TopicName</option>
+                            }
+                        </select>
+                    </div>
+                    <input type="button" class="btn-sm btn-primary mb-2" onclick="addTopic()" value="Add Topic">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete this record</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 style="text-align:center">Are you sure want to delete this record ??</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="deleteItem()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var id_record = @ViewBag.TraineeId;
+
+    // Example POST method implementation:
+    async function postData(url = '', data = {}) {
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+    }
+
+    $(document).ready(function () {
+        $('#table_cate').DataTable();
+    });
+
+
+    addCourse = () => {
+        var req = {
+            TraineeId: id_record,
+            CourseId: $('#CourseId').val()
+        }
+        postData('/CourseTrainee/Insert', req)
+            .then((data) => {
+                if (data.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    setTimeout(window.location.reload.bind(window.location), 250);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            });
+    }
+
+    addTopic = () => {
+        var req = {
+            TraineeId: id_record,
+            TopicId: $('#TopicId').val()
+        }
+        postData('/TopicTrainee/Insert', req)
+            .then((data) => {
+                if (data.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    setTimeout(window.location.reload.bind(window.location), 250);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            });
+    }
+
+    openDeleteModal = (id) => {
+        id_record = id;
+    }
+
+    deleteItem = () => {
+        $.ajax({
+            url: '/TraineePage/DeleteTopic?topicId=' + id_record,
+            type: 'GET',
+            success: function (result) {
+                if (result.success) {
+                    toastr.success('Successfully !');
+                    $('.modal').modal('hide');
+                    setTimeout(window.location.reload.bind(window.location), 250);
+                }
+                else {
+                    toastr.warning('Failed !');
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    }
+
+</script>
+
+
