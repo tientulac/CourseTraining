@@ -718,6 +718,11 @@
     <Content Include="Views\Shared\Trainer\_Header.cshtml" />
     <Content Include="Views\Shared\Trainer\_SideBar.cshtml" />
     <Content Include="Views\Shared\Trainer\_TrainerLayout.cshtml" />
+    <Content Include="Views\TrainerPage\Index.cshtml" />
+    <Content Include="Views\TrainerPage\Category.cshtml" />
+    <Content Include="Views\TrainerPage\TrainerDetail.cshtml" />
+    <Content Include="Views\TrainerPage\Course.cshtml" />
+    <Content Include="Views\TrainerPage\Topic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -728,7 +733,6 @@
     <Folder Include="Views\TopicStaff\" />
     <Folder Include="Views\TopicTrainee\" />
     <Folder Include="Views\TopicTrainer\" />
-    <Folder Include="Views\TrainerPage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

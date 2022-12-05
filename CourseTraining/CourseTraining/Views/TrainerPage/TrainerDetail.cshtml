@@ -1,17 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "TraineeDetail";
-    Layout = "~/Views/Shared/Trainee/_TraineeLayout.cshtml";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Trainer/_TrainerLayout.cshtml";
 }
+
 
 <div class="col-md-12">
     <form id="bouqueti-form">
         <div class="form-row">
-            
+
             <div class="col-md-12"><a style="float: right; margin-top: 20px;" href="#" class="btn btn-secondary btn-round" onclick="updateInfo()">Update Info</a></div>
             <div class="form-group col-md-6">
                 <label class="required" for="inputEmail4">Name</label>
-                <input type="text" class="form-control contact-method" id="TraineeName" placeholder="Name">
+                <input type="text" class="form-control contact-method" id="TrainerName" placeholder="Name">
             </div>
             <div class="form-group col-md-6">
                 <label class="required" for="inputEmail4">Dob</label>
@@ -28,22 +29,6 @@
             <div class="form-group col-md-12">
                 <label class="required" for="inputEmail4">Email</label>
                 <input type="text" class="form-control contact-method" id="Email" placeholder="Email">
-            </div>
-            <div class="form-group col-md-6">
-                <label class="required" for="inputEmail4">Main Program</label>
-                <input type="text" class="form-control contact-method" id="MainProgram" placeholder="MainProgram">
-            </div>
-            <div class="form-group col-md-6">
-                <label class="required" for="inputEmail4">TOEIC Score</label>
-                <input type="number" class="form-control contact-method" id="TOEICScore" placeholder="TOEICScore">
-            </div>
-            <div class="form-group col-md-12">
-                <label class="required" for="inputEmail4">Address</label>
-                <input type="text" class="form-control contact-method" id="Address" placeholder="Address">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="descrip">Detail</label>
-                <textarea class="form-control" id="Detail" rows="3"></textarea>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="option1" onclick="checkGender(false)">
@@ -66,19 +51,15 @@
 
     $(document).ready(function () {
         $.ajax({
-            url: '/Trainee/FindById?traineeId=' + @ViewBag.Trainee.TraineeId,
+            url: '/Trainer/FindById?trainerId=' + @ViewBag.Trainer.TrainerId,
             type: 'GET',
             success: function (result) {
                 if (result.success) {
                     var dob = new Date(parseInt((result.data.Dob).toString().replaceAll('/Date(', '').replaceAll(')/', '')));
 
                     $('.infoForm').css('display', 'none');
-                    $('#TraineeName').val(result.data.TraineeName);
+                    $('#TrainerName').val(result.data.TrainerName);
                     $('#Education').val(result.data.Education);
-                    $('#MainProgram').val(result.data.MainProgram);
-                    $('#TOEICScore').val(result.data.TOEICScore);
-                    $('#Detail').val(result.data.Detail);
-                    $('#Address').val(result.data.Address);
                     $('#Dob').val(formatDate(dob.getFullYear(), dob.getMonth() + 1, dob.getDate()));
                     if (result.data.Gender) {
                         $('#female').prop('checked', true);
@@ -89,8 +70,6 @@
                         gender = false;
                     } $('#Education').val(result.data.Education);
                     $('#Phone').val(result.data.Phone);
-                    $('#UserName').val(result.data.Account.UserName);
-                    $('#Password').val(result.data.Account.Password);
                     $('#Email').val(result.data.Account.Email);
                 }
                 else {
@@ -103,19 +82,19 @@
 
     updateInfo = () => {
         var req = {
-            TraineeId:  @ViewBag.Trainee.TraineeId,
-            TraineeName: $('#TraineeName').val(),
+            TrainerId: @ViewBag.Trainer.TrainerId,
+            TrainerName: $('#TrainerName').val(),
             Dob: $('#Dob').val(),
             Gender: gender,
             Education: $('#Education').val(),
             Phone: $('#Phone').val(),
-            MainProgram: $('#MainProgram').val(),
-            TOEICScore: $('#TOEICScore').val(),
-            Address: $('#Address').val(),
-            Detail: $('#Detail').val(),
+            Account: {
+                Email: $('#Email').val(),
+                Admin: false,
+            }
         }
 
-        postData('/Trainee/Save', req)
+        postData('/Trainer/Save', req)
             .then((data) => {
                 if (data.success) {
                     toastr.success('Successfully !');

@@ -58,18 +58,18 @@
                     </a>
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
-                            <li>
-                                <a href="/Category/Index">
+                            @*<li>
+                                <a href="/TrainerPage/Category">
                                     <span class="sub-item">Category</span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li>
-                                <a href="/Course/Index">
+                                <a href="javascript:void(0)" onclick="changeUrl(2)">
                                     <span class="sub-item">Course</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/Topic/Index">
+                                <a href="javascript:void(0)" onclick="changeUrl(3)">
                                     <span class="sub-item">Topic</span>
                                 </a>
                             </li>
@@ -77,7 +77,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="/Trainer/Index">
+                    <a href="javascript:void(0)" onclick="changeUrl(1)">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <p>Trainer</p>
                     </a>
@@ -87,10 +87,24 @@
     </div>
 </div>
 <!-- End Sidebar -->
-
 <script>
+    var account_id = 0;
+
     $(document).ready(function () {
         var info = JSON.parse(localStorage.getItem('UserInfo'));
+        account_id = info.UserId;
         $('#name_acc_sidebar').html(info.UserName);
     });
+
+    changeUrl = (type) => {
+        if (type == 1) {
+            window.location.href = '../TrainerPage/TrainerDetail?id=' + account_id;
+        }
+        if (type == 2) {
+            window.location.href = '../TrainerPage/Course?id=' + account_id;
+        }
+        if (type == 3) {
+            window.location.assign('../TrainerPage/Topic?id=' + account_id);
+        }
+    }
 </script>
