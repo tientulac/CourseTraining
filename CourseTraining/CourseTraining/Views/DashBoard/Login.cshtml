@@ -362,7 +362,10 @@
                     }
                     if (userInfo.Type == 1) {
                         toastr.success('Successfully !');
-                        window.location.assign('../TraineePage/Index');
+                        window.location.assign('../TraineePage/Dashboard?id=' + userInfo.UserId);
+                    }
+                    if (userInfo.Type == 0) {
+                        toastr.warning('This account not have type !');
                     }
                 }
                 else {

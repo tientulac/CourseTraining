@@ -147,5 +147,34 @@ namespace CourseTraining.Controllers
             db.SubmitChanges();
             return Json(new { success = true, data = _topic }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Dashboard(int id = 0)
+        {
+            var _trainee = (from a in db.Trainees.Where(x => x.AccountId == id)
+                            select new TraineeDTO
+                            {
+                                Account = db.Accounts.Where(x => x.AccountId == a.AccountId).FirstOrDefault(),
+                                TraineeId = a.TraineeId,
+                                TraineeName = a.TraineeName,
+                                Dob = a.Dob,
+                                Image = a.Image,
+                                Gender = a.Gender,
+                                AccountId = a.AccountId,
+                                Education = a.Education,
+                                Phone = a.Phone,
+                                GenderName = a.Gender == true ? "Female" : "Male",
+                                UserName = db.Accounts.Where(x => x.AccountId == a.AccountId).FirstOrDefault().UserName ?? "",
+                                MainProgram = a.MainProgram,
+                                TOEICScore = a.TOEICScore,
+                                Detail = a.Detail,
+                                Address = a.Address
+                            }).FirstOrDefault();
+            var listIdTopic = db.TraineeTopics.Where(x => x.TraineeId == _trainee.TraineeId).Select(x => x.TopicId);
+            var listIdCourse = db.TraineeCourses.Where(x => x.TraineeId == _trainee.TraineeId).Select(x => x.CourseId);
+            ViewBag.Trainee = _trainee;
+            ViewBag.ListTopic = db.Topics.Where(x => listIdTopic.Contains(x.TopicId)).Take(4).OrderByDescending(m => m.TopicId);
+            ViewBag.ListCourse = db.Courses.Where(x => listIdCourse.Contains(x.CourseId)).Take(4).OrderByDescending(m => m.CourseId);
+            return View();
+        }
     }
 }

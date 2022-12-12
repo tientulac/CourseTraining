@@ -38,12 +38,6 @@
                 </div>
             </div>
             <ul class="nav nav-primary">
-                <li class="nav-item active">
-                    <a href="/Dashboard/Index" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-home"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
@@ -58,11 +52,11 @@
                     </a>
                     <div class="collapse" id="base">
                         <ul class="nav nav-collapse">
-                            @*<li>
+                            <li>
                                 <a href="/TrainerPage/Category">
                                     <span class="sub-item">Category</span>
                                 </a>
-                            </li>*@
+                            </li>
                             <li>
                                 <a href="javascript:void(0)" onclick="changeUrl(2)">
                                     <span class="sub-item">Course</span>
@@ -80,6 +74,12 @@
                     <a href="javascript:void(0)" onclick="changeUrl(1)">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <p>Trainer</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/TrainerPage/Trainee">
+                        <i class="fa fa-user-alt" aria-hidden="true"></i>
+                        <p>Trainee</p>
                     </a>
                 </li>
             </ul>

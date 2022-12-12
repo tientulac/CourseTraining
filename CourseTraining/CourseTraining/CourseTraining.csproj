@@ -723,6 +723,8 @@
     <Content Include="Views\TrainerPage\TrainerDetail.cshtml" />
     <Content Include="Views\TrainerPage\Course.cshtml" />
     <Content Include="Views\TrainerPage\Topic.cshtml" />
+    <Content Include="Views\TrainerPage\Trainee.cshtml" />
+    <Content Include="Views\TraineePage\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

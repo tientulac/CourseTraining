@@ -61,11 +61,12 @@ namespace CourseTraining.Controllers
                 var checkTrainee = db.Trainees.Where(x => x.AccountId == _user.FirstOrDefault().AccountId).Any();
                 var checkTrainer = db.Trainers.Where(x => x.AccountId == _user.FirstOrDefault().AccountId && _user.FirstOrDefault().Admin == false).Any();
                 var checkAdmin = db.Trainers.Where(x => x.AccountId == _user.FirstOrDefault().AccountId && _user.FirstOrDefault().Admin == true).Any();
+                var checkAdmin2 = db.Accounts.Where(x => x.AccountId == _user.FirstOrDefault().AccountId && _user.FirstOrDefault().Admin == true).Any();
                 // type = 3: ADMIN, type = 2: Trainer, type =1: Trainee
                 if (_user.Any())
                 {
                     var token = createToken(_user.FirstOrDefault().UserName);
-                    var typeAccount = checkTrainee ? 1 : checkTrainer ? 2 : checkAdmin ? 3 : 0;
+                    var typeAccount = checkTrainee ? 1 : checkTrainer ? 2 : (checkAdmin || checkAdmin2) ? 3 : 0;
                     return Json(new { success = true, data = _user.FirstOrDefault(), token = token, type = typeAccount }, JsonRequestBehavior.AllowGet);
                 }
             }
