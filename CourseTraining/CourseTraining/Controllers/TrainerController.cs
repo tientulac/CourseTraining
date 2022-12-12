@@ -112,7 +112,8 @@ namespace CourseTraining.Controllers
                                   Descrip = a.Descrip,
                                   Status = a.Status,
                                   CategoryId = a.CategoryId,
-                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? "",
+                                  Forum = a.Forum
                               }).ToList();
             var listTopic = (from a in db.Topics
                               select new TopicDTO
@@ -145,7 +146,8 @@ namespace CourseTraining.Controllers
                                   Descrip = a.Descrip,
                                   Status = a.Status,
                                   CategoryId = a.CategoryId,
-                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? "",
+                                  Forum = a.Forum
                               }).ToList();
             return Json(new { success = true, data = listCourse }, JsonRequestBehavior.AllowGet);
         }
@@ -167,6 +169,67 @@ namespace CourseTraining.Controllers
                                   CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
                               }).ToList();
             return Json(new { success = true, data = listTopic }, JsonRequestBehavior.AllowGet);
+        }
+
+        // CourseMaster
+        [HttpPost]
+        public ActionResult SaveCourseMaster(Course req)
+        {
+            if (req.CourseId > 0)
+            {
+                var _course = db.Courses.Where(M => M.CourseId == req.CourseId).FirstOrDefault();
+                _course.CourseName = req.CourseName;
+                _course.Image = req.Image;
+                _course.Descrip = req.Descrip;
+                _course.Status = req.Status;
+                _course.CategoryId = req.CategoryId;
+                _course.Author = req.Author;
+                _course.Forum = req.Forum;
+
+                db.SubmitChanges();
+                return Json(new { success = true, data = _course }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                req.Status = 1;
+            }
+            db.Courses.InsertOnSubmit(req);
+            db.SubmitChanges();
+            return Json(new { success = true, data = req }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DeleteCourseMaster(int courseId)
+        {
+            var _course = db.Courses.Where(M => M.CourseId == courseId).FirstOrDefault();
+            db.Courses.DeleteOnSubmit(_course);
+            db.SubmitChanges();
+            return Json(new { success = true, data = _course }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult FindCourseMasterById(int courseId)
+        {
+            var _course = db.Courses.Where(M => M.CourseId == courseId).FirstOrDefault();
+            return Json(new { success = true, data = _course }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CourseMaster()
+        {
+            var listCourse = (from a in db.Courses
+                              select new CourseDTO
+                              {
+                                  CourseId = a.CourseId,
+                                  CourseName = a.CourseName,
+                                  Image = a.Image,
+                                  Descrip = a.Descrip,
+                                  Status = a.Status,
+                                  CategoryId = a.CategoryId,
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? "",
+                                  Author = a.Author,
+                                  Forum = a.Forum
+                              }).ToList();
+            ViewBag.ListCourse = listCourse;
+            ViewBag.ListCategory = db.Categories.ToList();
+            return View();
         }
     }
 }

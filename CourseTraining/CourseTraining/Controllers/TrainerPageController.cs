@@ -93,7 +93,8 @@ namespace CourseTraining.Controllers
                                   Descrip = a.Descrip,
                                   Status = a.Status,
                                   CategoryId = a.CategoryId,
-                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? ""
+                                  CategoryName = db.Categories.Where(x => x.CategoryId == a.CategoryId).FirstOrDefault().CategoryName ?? "",
+                                  Forum = a.Forum
                               }).ToList();
             var listTrainerCourse = (from a in db.Courses
                                      select new CourseDTO

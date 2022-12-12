@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/Trainer/_TrainerLayout.cshtml";
 }
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
@@ -13,7 +13,7 @@
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
                 <div>
                     <h2 class="text-white pb-2 fw-bold">Topic</h2>
-                    <h5 class="text-white op-7 mb-2">Home/Admin/Topic</h5>
+                    <h5 class="text-white op-7 mb-2">Home/Trainer/Topic</h5>
                 </div>
                 <div class="ml-md-auto py-2 py-md-0">
                     <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
@@ -62,6 +62,7 @@
 
                                                     }
                                                     <td>@f.CategoryName</td>
+                                                    <td>@f.Author</td>
                                                     <td>
                                                         <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#addModal" style="margin-right: 5px;" onclick="openUpdateModal(@f.TopicId)">
                                                             <i class="fas fa-edit"></i>
